@@ -5,3 +5,6 @@ Author: Christian Bodenbender
 Dependencies:
 
 http://www.gorillatoolkit.org/ for smart routing in go.
+
+Possible future dependencies:
+gorillatoolkit websocket
