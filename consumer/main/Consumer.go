@@ -38,3 +38,4 @@ func receiveShow(w http.ResponseWriter, r *http.Request) {
 // todo evaluate if all content or only new content should be sent
 // if all content : delete content of div, put in result of ajax call
 // if new content : append new content to div, check for duplicates?
+// take a look at https://stackoverflow.com/questions/8567114/how-to-make-an-ajax-call-without-jquery
