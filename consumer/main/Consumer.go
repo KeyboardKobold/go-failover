@@ -22,7 +22,7 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
-	router.HandleFunc("/receive", receiveIndex)
+	router.HandleFunc("/getEvents", getEvents)
 	router.HandleFunc("/receive/{data}", receiveShow)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
@@ -44,7 +44,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-func receiveIndex(w http.ResponseWriter, r *http.Request) {
+func getEvents(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This could be the overview of received data!")
 
 	tmpl := template.Must(template.ParseFiles("consumer/main/templates/eventList.html"))
