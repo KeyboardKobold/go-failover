@@ -28,14 +28,13 @@
     </script>
 </head>
 <body>
-    <h1>{{.PageTitle}}<h1>
-        <ul>
-            {{range .Events}}
-                    <li class="event">{{.EventId}}</li>
-            {{end}}
-        </ul>
+    <h1>All received Events</h1>
         <div id="data">
-
+            <ul>
+            {{range .}}
+                <li class="event">{{.EventId}}</li>
+            {{end}}
+            </ul>
         </div>
 </body>
 </html>

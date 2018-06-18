@@ -13,56 +13,46 @@ type Event struct {
 	EventId int
 }
 
-type PageData struct {
-	PageTitle string
-	Events     []Event
-}
+var Events []Event
 
 func main() {
+
+	Events = []Event{
+		{EventId: 1},
+		{EventId: 2},
+		{EventId: 3},
+	}
+
+	Events = append(Events, Event{4})
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
 	router.HandleFunc("/getEvents", getEvents)
 	router.HandleFunc("/receive/{data}", receiveShow)
+	router.HandleFunc("/addEvent", addEvent).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	//fmt.Fprintln(w, "Welcome! This is the landing page")
-
 	tmpl := template.Must(template.ParseFiles("consumer/main/templates/Index.html"))
-
-	data := PageData{
-		PageTitle: "My TODO list",
-		Events: []Event{
-			{EventId: 1},
-			{EventId: 2},
-			{EventId: 3},
-		},
-	}
-	tmpl.Execute(w, data)
+	tmpl.Execute(w, Events)
 }
 
 func getEvents(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "This could be the overview of received data!")
-
 	tmpl := template.Must(template.ParseFiles("consumer/main/templates/eventList.html"))
-	data := PageData{
-		PageTitle: "My TODO list",
-		Events: []Event{
-			{EventId: 1},
-			{EventId: 2},
-			{EventId: 3},
-		},
-	}
-	tmpl.Execute(w, data)
+	tmpl.Execute(w, Events)
 }
 
 func receiveShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	data := vars["data"]
 	fmt.Fprintln(w, "This is how I can accept data:", data)
+}
+
+func addEvent(w http.ResponseWriter, r *http.Request) {
+	event := r.FormValue("eventId")
+	fmt.Fprintln(w, "This is how I can accept data:", event)
 }
 
 // take a look at https://github.com/ET-CS/golang-response-examples/blob/master/ajax-json.go
