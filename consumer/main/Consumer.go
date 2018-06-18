@@ -8,7 +8,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"strconv"
-	"os"
 )
 
 type Event struct {
@@ -60,9 +59,23 @@ func addEvent(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// handle error
 		fmt.Println(err)
-		os.Exit(2)
+		fmt.Println("Request body was: " + eventIdText)
+		//os.Exit(2)
 	}
-	Events = append(Events, Event{eventId})
+	if !contains(Events, eventId) {
+		Events = append(Events, Event{eventId})
+	} else {
+		fmt.Printf("Producer produced duplicate eventId!\n")
+	}
+}
+
+func contains(s []Event, e int) bool {
+	for _, a := range s {
+		if a.EventId == e {
+			return true
+		}
+	}
+	return false
 }
 
 // take a look at https://github.com/ET-CS/golang-response-examples/blob/master/ajax-json.go
