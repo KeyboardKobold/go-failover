@@ -20,7 +20,6 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
 	router.HandleFunc("/getEvents", getEvents)
-	router.HandleFunc("/receive/{data}", receiveShow)
 	router.HandleFunc("/addEvent", addEvent).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
@@ -34,12 +33,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func getEvents(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("consumer/main/templates/eventList.html"))
 	tmpl.Execute(w, Events)
-}
-
-func receiveShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	data := vars["data"]
-	fmt.Fprintln(w, "This is how I can accept data:", data)
 }
 
 func addEvent(w http.ResponseWriter, r *http.Request) {
