@@ -7,6 +7,8 @@ import (
 	"html/template"
 
 	"github.com/gorilla/mux"
+	"strconv"
+	"os"
 )
 
 type Event struct {
@@ -51,8 +53,16 @@ func receiveShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func addEvent(w http.ResponseWriter, r *http.Request) {
-	event := r.FormValue("eventId")
-	fmt.Fprintln(w, "This is how I can accept data:", event)
+	eventIdText := r.FormValue("eventId")
+
+	//parsing string to int
+	eventId, err := strconv.Atoi(eventIdText)
+	if err != nil {
+		// handle error
+		fmt.Println(err)
+		os.Exit(2)
+	}
+	Events = append(Events, Event{eventId})
 }
 
 // take a look at https://github.com/ET-CS/golang-response-examples/blob/master/ajax-json.go

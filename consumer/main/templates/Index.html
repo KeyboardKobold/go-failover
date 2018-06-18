@@ -19,12 +19,15 @@
         }
         function updateEvents(responseText){
             document.getElementById("data").innerHTML = responseText;
+            setTimeout(callAjax("/getEvents", updateEvents), 5000);
         }
         function codeAddress() {
             alert('ok');
         }
         //window.onload = codeAddress;
-        window.onload = callAjax("/getEvents", updateEvents)
+        //window.onload = callAjax("/getEvents", updateEvents)
+        window.onload = setTimeout(callAjax("/getEvents", updateEvents), 1000);
+        //window.setInterval(callAjax("/getEvents", updateEvents), 1000);
     </script>
 </head>
 <body>
