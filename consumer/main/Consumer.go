@@ -4,9 +4,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"html/template"
 
 	"github.com/gorilla/mux"
 )
+
+type Event struct {
+	EventId int
+}
+
+type PageData struct {
+	PageTitle string
+	Events     []Event
+}
 
 func main() {
 
@@ -19,7 +29,19 @@ func main() {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome! This is the landing page")
+	//fmt.Fprintln(w, "Welcome! This is the landing page")
+
+	tmpl := template.Must(template.ParseFiles("consumer/main/templates/Index.html"))
+
+	data := PageData{
+		PageTitle: "My TODO list",
+		Events: []Event{
+			{EventId: 1},
+			{EventId: 2},
+			{EventId: 3},
+		},
+	}
+	tmpl.Execute(w, data)
 }
 
 func receiveIndex(w http.ResponseWriter, r *http.Request) {

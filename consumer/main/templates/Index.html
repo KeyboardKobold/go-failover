@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{.PageTitle}}<h1>
+        <ul>
+            {{range .Events}}
+                    <li class="event">{{.EventId}}</li>
+            {{end}}
+    </ul>
+</body>
+</html>
