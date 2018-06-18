@@ -17,15 +17,6 @@ type Event struct {
 var Events []Event
 
 func main() {
-
-	Events = []Event{
-		{EventId: 1},
-		{EventId: 2},
-		{EventId: 3},
-	}
-
-	Events = append(Events, Event{4})
-
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
 	router.HandleFunc("/getEvents", getEvents)
@@ -85,3 +76,5 @@ func contains(s []Event, e int) bool {
 // if all content : delete content of div, put in result of ajax call
 // if new content : append new content to div, check for duplicates?
 // take a look at https://stackoverflow.com/questions/8567114/how-to-make-an-ajax-call-without-jquery
+
+// todo improve templates to load only once
