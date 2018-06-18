@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Event Overview</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script type="text/javascript">
-        function callAjax(url, callback){
+        function callAjax(url, callback) {
             var xmlhttp;
             // compatible with IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     callback(xmlhttp.responseText);
 
                 }
@@ -17,27 +19,43 @@
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
         }
-        function updateEvents(responseText){
-            document.getElementById("data").innerHTML = responseText;
+
+        function updateEvents(responseText) {
+            document.getElementById("main").innerHTML = responseText;
             setTimeout(callAjax("/getEvents", updateEvents), 5000);
         }
+
         function codeAddress() {
             alert('ok');
         }
-        //window.onload = codeAddress;
-        //window.onload = callAjax("/getEvents", updateEvents)
+
         window.onload = setTimeout(callAjax("/getEvents", updateEvents), 1000);
-        //window.setInterval(callAjax("/getEvents", updateEvents), 1000);
+
     </script>
 </head>
 <body>
-    <h1>All received Events</h1>
-        <div id="data">
-            <ul>
+<header class="w3-display-container w3-content w3-center" style="max-width:1500px">
+    <!-- <img class="w3-image" src="/w3images/photographer.jpg" alt="Me" width="1500" height="600"> -->
+    <div class="w3-black w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
+        <h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">Event Overview</h1>
+        <h5 class="w3-hide-large" style="white-space:nowrap">Event Overview</h5>
+        <h3 class="w3-hide-medium w3-hide-small">Failover System</h3>
+    </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:60px">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide w3-center" style="margin-top:80px">EVENTS</h2>
+
+        <div id="main">
+            <ul class="w3-ul w3-text-grey w3-center" style="margin-top:30px">
             {{range .}}
-                <li class="event">{{.EventId}}</li>
+                <li class="event w3-padding w3-panel"><b>{{.EventId}}</b></li>
             {{end}}
             </ul>
         </div>
+    </div>
+</div>
 </body>
 </html>
