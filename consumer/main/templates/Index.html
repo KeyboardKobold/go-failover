@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript">
+        function callAjax(url, callback){
+            var xmlhttp;
+            // compatible with IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    callback(xmlhttp.responseText);
+
+                }
+            }
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+        function updateEvents(responseText){
+            document.getElementById("data").innerHTML = responseText;
+        }
         function codeAddress() {
             alert('ok');
         }
-        window.onload = codeAddress;
+        //window.onload = codeAddress;
+        window.onload = callAjax("/receive", updateEvents)
     </script>
 </head>
 <body>
@@ -16,6 +33,9 @@
             {{range .Events}}
                     <li class="event">{{.EventId}}</li>
             {{end}}
-    </ul>
+        </ul>
+        <div id="data">
+
+        </div>
 </body>
 </html>

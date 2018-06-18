@@ -46,6 +46,17 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 func receiveIndex(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This could be the overview of received data!")
+
+	tmpl := template.Must(template.ParseFiles("consumer/main/templates/eventList.html"))
+	data := PageData{
+		PageTitle: "My TODO list",
+		Events: []Event{
+			{EventId: 1},
+			{EventId: 2},
+			{EventId: 3},
+		},
+	}
+	tmpl.Execute(w, data)
 }
 
 func receiveShow(w http.ResponseWriter, r *http.Request) {
