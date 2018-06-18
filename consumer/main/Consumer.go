@@ -71,3 +71,5 @@ func contains(s []Event, e int) bool {
 // take a look at https://stackoverflow.com/questions/8567114/how-to-make-an-ajax-call-without-jquery
 
 // todo improve templates to load only once
+
+// todo store latest event in js, request new data with latest event id as parameter of request, answer with all following events
