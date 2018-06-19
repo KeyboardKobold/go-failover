@@ -1,0 +1,22 @@
+digraph {
+    overlap=scale
+    rankdir=LR;
+    compound=true;
+
+    subgraph cluster0 {
+        label="Consumer";
+        a; b; c;
+    }
+
+    subgraph cluster1 {
+        label="Buffer";
+        d; e; f;
+    }
+
+    Producer -> e [lhead=cluster1 xlabel="Write to Leader"]
+    d -> f [dir=both]
+    d -> e [dir=both]
+    e -> f [dir=both]
+
+    e -> b [dir=both ltail=cluster1 lhead=cluster0]
+}

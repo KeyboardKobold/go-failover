@@ -1,0 +1,8 @@
+digraph {
+    overlap=scale
+    rankdir=LR;
+    compound=true;
+
+    Producer -> Consumer
+    Consumer -> Client [dir=both color="red:blue"]
+}
