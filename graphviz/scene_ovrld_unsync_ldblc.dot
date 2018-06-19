@@ -1,0 +1,15 @@
+digraph {
+    size="1920,1080!"
+    overlap=scale
+    rankdir=LR;
+    compound=true;
+
+    subgraph cluster0 {
+        label="Consumer";
+        a; b; c; d;
+    }
+
+    Producer -> { a b c d }
+    { a b c d } -> LoadBalancer [dir=both color="red:blue"]
+    Client -> LoadBalancer [dir=both color="red:blue"]
+}

@@ -1,0 +1,23 @@
+Reihenfolge und Aussagen der Graphen:
+
+Szene 1: scene_spof
+Sollte der Consumer-Knoten sterben, ist leider unsere Anwendung tot. Auch die Daten sind weg.
+
+Szene 2: scene_ovrld_unsync
+Die Consumer sind nicht synchronisiert. Jeder kann einen eigenen anderen Zustand haben. Das ist schlecht!
+Hier läuft die Anwendung theoretisch weiter, auch wenn ein Knoten stirbt.
+Jeder Client muss jedoch explizit wissen, mit welchem Consumer er spricht.
+Stirbt genau dieser, ist für den Client hier auch wieder Ende.
+
+Szene 3: scene_ovrld_unsync_ldblc
+Immerhin gibt es nun einen Loadbalancer, der die Aufrufe delegiert.
+Somit kann ein Client nach dem Absturz seines Consumers weiterarbeiten, befindet sich dann aber plötzlich in einer Umgebung mit anderen Daten.
+
+Szene 4: unbekannt
+Einführung von Buffern. Unsynchronisiert unverändertes Problem zu Szene 3.
+
+Szene 5: unbekannt
+Buffer werden nun über einen elected Leader synchronisiert. Nur in einen wird geschrieben, alle anderen Lesen ihren State von ihm.
+
+TODO    debattieren ob und wann mehrere producer auftauchen sollen, schließlich soll das eine verteilte iot anwendung darstellen.
+TODO    debattieren ob und wann mehrere clients auftauchen sollen...

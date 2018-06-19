@@ -1,0 +1,13 @@
+digraph {
+    overlap=scale
+    rankdir=LR;
+    compound=true;
+
+    subgraph cluster0 {
+        label="Consumer";
+        a; b; c; d;
+    }
+
+    Producer -> { a b c d }
+    { a b c d } -> Client [dir=both color="red:blue"]
+}
