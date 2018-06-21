@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  consumer:
+    build:
+      dockerfile: Dockerfile
+      context: consumer/main/
+    networks:
+      - failover-net
+    ports:
+      - "8080:8080"
+  producer:
+      build:
+        dockerfile: Dockerfile
+        context: producer/main/
+      environment:
+        - CONSUMER_HOST=consumer:8080
+      networks:
+        - failover-net
+
+networks:
+  failover-net:

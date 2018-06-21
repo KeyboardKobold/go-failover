@@ -1,5 +1,5 @@
 digraph {
-    size="1920,1080!"
+
     overlap=scale
     rankdir=LR;
     compound=true;
