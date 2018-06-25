@@ -21,6 +21,7 @@ func main() {
 	router.HandleFunc("/", Index)
 	router.HandleFunc("/getEvents", getEvents)
 	router.HandleFunc("/addEvent", addEvent).Methods("POST")
+	router.HandleFunc("/health", checkHealth)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
@@ -51,6 +52,10 @@ func addEvent(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Printf("Producer produced duplicate eventId!\n")
 	}
+}
+
+func checkHealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
 
 func contains(s []Event, e int) bool {
