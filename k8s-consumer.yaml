@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: consumer-frontend
+  labels:
+    app: consumer
+    tier: frontend
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: consumer
+        tier: frontend
+    spec:
+      containers:
+      - name: consumer-app
+        image: hauptseminarss18_consumer:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http-server
+          containerPort: 8080
