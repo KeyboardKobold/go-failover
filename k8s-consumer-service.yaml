@@ -14,3 +14,5 @@ spec:
   selector:
     app: consumer
     tier: frontend
+
+    # TODO only one consumer is being fed with data. It may not necessarily be the one served when accessing the outside address.

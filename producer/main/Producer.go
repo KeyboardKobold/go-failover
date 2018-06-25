@@ -8,8 +8,8 @@ import (
 	"time"
 	"net/http"
 	"strings"
-	"os"
 	"errors"
+	"os"
 )
 
 func main() {
@@ -26,11 +26,16 @@ func main() {
 }
 
 func postEvent(count int) error {
-	requestHost := os.Getenv("CONSUMER_HOST")
+	//requestHost := os.Getenv("CONSUMER_HOST")
+	requestHost := os.Getenv("CONSUMER_FRONTEND_SERVICE_HOST")
 	if requestHost == "" {
-		panic(errors.New("CONSUMER_HOST was not set"))
+		panic(errors.New("CONSUMER_FRONTEND_SERVICE_HOST was not set"))
 	}
-	requestUrl := "http://" + requestHost + "/addEvent"
+	requestPort := os.Getenv("CONSUMER_FRONTEND_SERVICE_PORT")
+	if requestPort == "" {
+		panic(errors.New("CONSUMER_FRONTEND_SERVICE_PORT was not set"))
+	}
+	requestUrl := "http://" + requestHost + ":" + requestPort + "/addEvent"
 	form := url.Values{
 		"eventId": {strconv.Itoa(count)},
 	}
