@@ -17,6 +17,6 @@ spec:
       - name: consumer-worker
         image: hauptseminarss18_producer:latest
         imagePullPolicy: IfNotPresent
-        env:
-          - name: CONSUMER_HOST
-            value: 192.168.99.101:30080
+        #env:
+          #- name: CONSUMER_HOST
+          #  value: 192.168.99.101:30080

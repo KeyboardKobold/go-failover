@@ -21,3 +21,7 @@ services:
 
 networks:
   failover-net:
+
+
+#build with docker-compose build
+#run with docker-compose up
