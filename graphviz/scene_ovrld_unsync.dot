@@ -5,9 +5,17 @@ digraph {
 
     subgraph cluster0 {
         label="Consumer";
-        a; b; c; d;
+        Consumer_1; Consumer_2; Consumer_3; Consumer_4;
     }
 
-    Producer -> { a b c d }
-    { a b c d } -> Client [dir=both color="red:blue"]
+    subgraph cluster1 {
+        label="Producer";
+        Producer_1; Producer_2; Producer_3; Producer_4;
+    }
+
+    Producer_1 -> Consumer_1
+    Producer_2 -> Consumer_2
+    Producer_3 -> Consumer_3
+    Producer_4 -> Consumer_4
+    { Consumer_1 Consumer_2 Consumer_3 Consumer_4 } -> Client [dir=both color="red:blue"]
 }
