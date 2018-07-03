@@ -11,20 +11,29 @@ digraph {
 
     subgraph cluster1 {
         label="Producer";
-        Producer_1; Producer_2;
+        { Producer_1 [label="Producer"] }
         rank="same";
     }
 
-    Producer_1 -> Consumer_1
-    Producer_2 -> Consumer_2
-    { Consumer_1 Consumer_2 } -> LoadBalancer [dir=both color="red:blue"]
+    Producer_1 -> NodePort_1
 
+    NodePort_1 -> Consumer_1
+    NodePort_1 -> Consumer_2 [color="grey"]
+
+
+
+
+    { NodePort_1 [label="NodePort"] }
+    { NodePort_2 [label="NodePort"] }
+
+    Consumer_1 -> NodePort_2 [dir=both color="red:blue"]
+    Consumer_2 -> NodePort_2 [dir=both color=grey]
 
     { rank = sink; Client_1 [label="Client"] }
     { rank = sink; Client_2 [label="Client"] }
     { rank = sink; Client_3 [label="Client"] }
 
-    Client_1 -> LoadBalancer [dir=both color="red:blue"]
-    Client_2 -> LoadBalancer [dir=both color="red:blue"]
-    Client_3 -> LoadBalancer [dir=both color="red:blue"]
+    Client_1 -> NodePort_2 [dir=both color="red:blue"]
+    Client_2 -> NodePort_2 [dir=both color="red:blue"]
+    Client_3 -> NodePort_2 [dir=both color="red:blue"]
 }
