@@ -1,21 +1,26 @@
 digraph {
     overlap=scale
-    rankdir=LR;
+    ratio="1.3"
     compound=true;
 
     subgraph cluster0 {
         label="Consumer";
-        Consumer_1; Consumer_2; Consumer_3; Consumer_4;
+        Consumer_1; Consumer_2;
+        rank="same";
     }
 
     subgraph cluster1 {
         label="Producer";
-        Producer_1; Producer_2; Producer_3; Producer_4;
+        Producer_1; Producer_2;
+        rank="same";
     }
 
     Producer_1 -> Consumer_1
     Producer_2 -> Consumer_2
-    Producer_3 -> Consumer_3
-    Producer_4 -> Consumer_4
-    { Consumer_1 Consumer_2 Consumer_3 Consumer_4 } -> Client [dir=both color="red:blue"]
+
+    Client_1 [label="Client"]
+    Client_2 [label="Client"]
+
+    Consumer_1 -> Client_1 [dir=both color="red:blue"]
+    Consumer_2 -> Client_2 [dir=both color="red:blue"]
 }
