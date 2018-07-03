@@ -1,15 +1,30 @@
 digraph {
-
     overlap=scale
-    rankdir=LR;
+    ratio="1.5"
     compound=true;
 
     subgraph cluster0 {
         label="Consumer";
-        a; b; c; d;
+        Consumer_1; Consumer_2;
+        rank="same";
     }
 
-    {Producer1 Producer2 Producer3} -> { a b c d }
-    { a b c d } -> LoadBalancer [dir=both color="red:blue"]
-    Client -> LoadBalancer [dir=both color="red:blue"]
+    subgraph cluster1 {
+        label="Producer";
+        Producer_1; Producer_2;
+        rank="same";
+    }
+
+    Producer_1 -> Consumer_1
+    Producer_2 -> Consumer_2
+    { Consumer_1 Consumer_2 } -> LoadBalancer [dir=both color="red:blue"]
+
+
+    { rank = sink; Client_1 [label="Client"] }
+    { rank = sink; Client_2 [label="Client"] }
+    { rank = sink; Client_3 [label="Client"] }
+
+    Client_1 -> LoadBalancer [dir=both color="red:blue"]
+    Client_2 -> LoadBalancer [dir=both color="red:blue"]
+    Client_3 -> LoadBalancer [dir=both color="red:blue"]
 }
