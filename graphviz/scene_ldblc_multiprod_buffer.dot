@@ -11,18 +11,35 @@ digraph {
 
     subgraph cluster1 {
         label="Producer";
-        Producer_1; Producer_2;
+        Producer_1; Producer_2; Producer_3;
     }
 
     subgraph cluster2 {
-            label="Buffer";
-            { rank = source; Buffer_1 [label="Leader"]; Buffer_2; Buffer_3; }
+        label="Kafka Buffer";
 
+        subgraph cluster3{
+            label="Topic 'data'"
+
+            subgraph cluster4{
+                label="Partition 1"
+                Kafka_Leader_1
+            }
+            subgraph cluster5{
+                label="Partition 1"
+                Kafka_Leader_2
+            }
+            subgraph cluster6{
+                label="Partition 1"
+                Kafka_Leader_3
+            }
+        }
     }
 
-    {Producer_1 Producer_2} -> Buffer_1
-    Buffer_1 -> { Buffer_2 Buffer_3}
-    Buffer_1 -> { Consumer_1 Consumer_2 } [dir=both color="red:blue"]
+    Producer_1 -> Kafka_Leader_1
+    Producer_2 -> Kafka_Leader_2
+    Producer_3 -> Kafka_Leader_3
+
+    { Kafka_Leader_1 Kafka_Leader_2 Kafka_Leader_3 } -> { Consumer_1 Consumer_2 } [dir=both color="red:blue"]
     { Consumer_1 Consumer_2 } -> LoadBalancer [dir=both color="red:blue"]
     { rank = sink; Client }
     Client -> LoadBalancer [dir=both color="red:blue" constraint=false]
